@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Prog7311_POE_ST10071737.DataModels
 {
-    public partial class YourDbContext : DbContext
+    public partial class MyDbContext : DbContext
     {
-        public YourDbContext()
+        public MyDbContext()
         {
         }
 
-        public YourDbContext(DbContextOptions<YourDbContext> options)
+        public MyDbContext(DbContextOptions<MyDbContext> options)
             : base(options)
         {
         }

@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Prog7311_POE_ST10071737.DataModels;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//MyLocalDatabase
+builder.Services.AddDbContext<MyDbContext>(options =>
+options.UseSqlServer(builder.Configuration
+.GetConnectionString("MyLocalDatabase")));
 
 var app = builder.Build();
 

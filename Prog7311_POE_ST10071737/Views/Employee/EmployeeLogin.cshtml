@@ -1,0 +1,32 @@
+﻿@model Prog7311_POE_ST10071737.Models.EmployeeLoginVM
+
+@{
+    Layout = null;
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Employee login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PROG6212_POE_Final_ST10071737.styles.css" asp-append-version="true" />
+</head>
+
+<form method="post" asp-controller="Student" asp-action="Login" class="col-md-5 mx-auto mt-5 text-center">
+
+    <div class="mb-3">
+        <label for="" class="form-label">Email</label>
+        <input type="text" class="form-control" asp-for="EmployeeEmail">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Password</label>
+        <input type="password" class="form-control" asp-for="EmployeePassword">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+
+    <a asp-action="Register" asp-controller="Student" class="btn btn-primary">Register</a>
+
+
+</form>
