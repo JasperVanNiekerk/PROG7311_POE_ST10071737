@@ -1,6 +1,44 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Prog7311_POE_ST10071737.Models.FarmerRegisterVM
 @{
+    Layout = null;
 }
-register farmer here
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Employee login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PROG6212_POE_Final_ST10071737.styles.css" asp-append-version="true" />
+</head>
+
+@if (Model.RequestMade)
+{
+    <div class="alert alert-success">
+        <p>Request has been made 
+            please note however if you have not entered a valid Email 
+            our team will not be able to communicate your login credentials to you</p>
+    </div>
+}
+else{
+<form method="post" asp-controller="Farmer" asp-action="RegisterFarmer" class="col-md-5 mx-auto mt-5 text-center">
+
+    <div class="mb-3">
+        <label for="" class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="FarmerName">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Surname</label>
+        <input type="text" class="form-control" asp-for="FarmerSurname">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Email</label>
+        <input type="text" class="form-control" asp-for="FarmerEmail">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit request</button>
+
+</form>
+}
+
