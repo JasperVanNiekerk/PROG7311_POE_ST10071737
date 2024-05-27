@@ -1,0 +1,32 @@
+﻿@model Prog7311_POE_ST10071737.Models.FarmerRequestVM
+
+<h1>Farmer Requests</h1>
+@if (Model.FarmerRequests.Count == 0 || !Model.FarmerRequests.Any())
+{
+    <h1>No requests found</h1>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Request Name</th>
+                <th>Request Surname</th>
+                <th>Request Email</th>
+                <th>Approve Request</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var request in Model.FarmerRequests.Where(x => x.IsApproved = false))
+            {
+                <tr>
+                    <td>@request.FirstName</td>
+                    <td>@request.LastName</td>
+                    <td>@request.Email</td>
+                    <td><a asp-action="ApproveRequest" asp-controller="Employee" asp-route-id="@request.RequestId" class="btn btn-primary">Approve</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
