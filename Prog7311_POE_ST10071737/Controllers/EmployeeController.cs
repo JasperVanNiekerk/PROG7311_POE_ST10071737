@@ -75,11 +75,20 @@ namespace Prog7311_POE_ST10071737.Controllers
             var farmerRequest = await myDBContext.FarmerRequests.FirstOrDefaultAsync(fr => fr.RequestId == FRID);
             if(farmerRequest != null)
             {
+                //send email (get info from farmer request)
                 var password = PasswordService.GeneratePassword();
                 var email = farmerRequest.Email;
                 var name = farmerRequest.FirstName;
                 EmailService emailService = new EmailService();
                 emailService.Sender(email, name, password);
+
+                //update farmer table
+                var newFarmer = new Farmer();
+                newFarmer.FirstName = name;
+                newFarmer.LastName = farmerRequest.LastName;
+                newFarmer.Email = email;
+                newFarmer.Password = password;
+                await myDBContext.AddAsync(newFarmer);
 
                 //update farmer request
                 farmerRequest.IsApproved = true;
