@@ -23,7 +23,7 @@ namespace Prog7311_POE_ST10071737.Services
                 // Set email body
                 oMail.TextBody = "Dear " + name + "\r\n" +
                     "your request to join the Agri-Energy Connect platform has been aprroved\r\n" +
-                    "You can now Login onto the platform with the following credentials" +
+                    "You can now Login onto the platform with the following credentials\r\n" +
                     "Email: " + email + "\r\n" +
                     "Password: " + password + "\r\n" +
                     "sincerely the Agri-Energy connect Team";

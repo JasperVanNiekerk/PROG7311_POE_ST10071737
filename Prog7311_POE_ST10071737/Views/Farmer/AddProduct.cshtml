@@ -1,7 +1,52 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Prog7311_POE_ST10071737.Models.AddProductVM
 @{
     Layout = "~/Views/Shared/_FarmerLayout.cshtml";
 }
-add product
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Employee login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PROG6212_POE_Final_ST10071737.styles.css" asp-append-version="true" />
+</head>
+
+<h1>Add Product</h1>
+
+<form method="post" asp-controller="Farmer" asp-action="AddProductToDB" class="col-md-5 mx-auto mt-5 text-center">
+
+    <div class="mb-3">
+        <label for="" class="form-label">Product Name</label>
+        <input type="text" class="form-control" asp-for="ProductName">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Product Description</label>
+        <input type="text" class="form-control" asp-for="ProductDescription">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Product  Price</label>
+        <input type="text" class="form-control" asp-for="ProductPrice">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Category</label>
+        <select class="form-control" asp-for="CatagoryID">
+            @foreach (var category in Model.catagories)
+            {
+                <option value="@category.CategoryId">@category.CategoryName</option>
+            }
+        </select>
+         
+        <a href="/Farmer/AddCategory" class="btn btn-primary">Add Category</a>
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Production Date</label>
+        <input type="text" class="form-control" asp-for="ProductionDate">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Product</button>
+
+</form>

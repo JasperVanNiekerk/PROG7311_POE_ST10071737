@@ -1,0 +1,26 @@
+﻿@model Prog7311_POE_ST10071737.Models.AddCategoryVM
+@{
+    Layout = "~/Views/Shared/_FarmerLayout.cshtml";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Employee login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PROG6212_POE_Final_ST10071737.styles.css" asp-append-version="true" />
+</head>
+
+<h1>Add Category</h1>
+
+<form method="post" asp-controller="Farmer" asp-action="AddCategoryToDB" class="col-md-5 mx-auto mt-5 text-center">
+
+    <div class="mb-3">
+        <label for="" class="form-label">Category Name</label>
+        <input type="text" class="form-control" asp-for="CategoryName">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+
+
+</form>

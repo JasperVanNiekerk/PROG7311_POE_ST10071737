@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Prog7311_POE_ST10071737.DataModels;
 using Prog7311_POE_ST10071737.Models;
-using Prog7311_POE_ST10071737.Services;
 
 
 namespace Prog7311_POE_ST10071737.Controllers
@@ -10,6 +9,7 @@ namespace Prog7311_POE_ST10071737.Controllers
     public class FarmerController : Controller
     {
         private readonly MyDbContext myDBContext;
+        private static int CurrentFarmerID;
 
         public FarmerController(MyDbContext myDBContext)
         {
@@ -39,11 +39,12 @@ namespace Prog7311_POE_ST10071737.Controllers
                 //check if the farmer exists
                 var farmer = await myDBContext.Farmers.FirstOrDefaultAsync(f => f.Email == model.FarmerEmail);
 
-                //if the farmer exists41
+                //if the farmer exists
                 if (farmer != null)
                 {
                     if (farmer.Password == model.FarmerPassword)
                     {
+                        CurrentFarmerID = farmer.FarmerId;
                         return RedirectToAction("FarmerHome");
                     }
                     return RedirectToAction("FarmerLogin");
@@ -59,7 +60,7 @@ namespace Prog7311_POE_ST10071737.Controllers
         [HttpGet]
         public IActionResult FarmerRegister()
         {
-            var  model = new FarmerRegisterVM();
+            var model = new FarmerRegisterVM();
             model.RequestMade = false;
             return View(model);
         }
@@ -93,25 +94,63 @@ namespace Prog7311_POE_ST10071737.Controllers
         [HttpGet]
         public IActionResult FarmerHome()
         {
-            return View();
+            var model = new FarmerHomeVM();
+            model.products = myDBContext.Products.ToList();
+            model.farmerName = myDBContext.Farmers.FirstOrDefault(f => f.FarmerId == CurrentFarmerID).FirstName;
+            return View(model);
         }
         //___________________________________________________________________________________________________________
 
         [HttpGet]
-        public IActionResult FarmerProfile()
+        public IActionResult AddCategory()
         {
             return View();
         }
         //___________________________________________________________________________________________________________
 
-        [HttpGet]
-        public IActionResult Addproduct()
+        [HttpPost]
+        public async Task<IActionResult> AddCategoryToDB(AddCategoryVM model)
         {
-            return View();
+            var newCategory = new Category
+            {
+                CategoryName = model.CategoryName
+            };
+
+            await myDBContext.AddAsync(newCategory);
+            await myDBContext.SaveChangesAsync();
+
+            return RedirectToAction("AddProduct");
         }
         //___________________________________________________________________________________________________________
 
+        [HttpGet]
+        public IActionResult AddProduct()
+        {
+            var model = new AddProductVM();
+            model.catagories = myDBContext.Categories.ToList();
+            return View(model);
+        }
+        //___________________________________________________________________________________________________________
 
+        [HttpPost]
+        public async Task<IActionResult> AddProductToDB(AddProductVM model)
+        {
+            var newProduct = new Product
+            {
+                ProductName = model.ProductName,
+                Description = model.ProductDescription,
+                Price = (decimal)model.ProductPrice,
+                ProductionDate = model.ProductionDate,
+                CategoryId = model.CatagoryID,
+                FarmerId = CurrentFarmerID
+            };
+
+            await myDBContext.AddAsync(newProduct);
+            await myDBContext.SaveChangesAsync();
+
+            return RedirectToAction("FarmerHome");
+        }
+        //___________________________________________________________________________________________________________
     }
 }
 //____________________________________EOF_________________________________________________________________________
