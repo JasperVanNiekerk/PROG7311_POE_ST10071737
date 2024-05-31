@@ -1,35 +1,43 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-    Layout = null;
-}
-
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] Agri-Energy Connect</title>
+    <title>@ViewData["Title"] - Agri-Energy Connect</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PROG6212_POE_Final_ST10071737.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #a8d08d; /* Light green base color */
+            background-image: linear-gradient(45deg, #7fbf5b 25%, transparent 25%, transparent 50%, #7fbf5b 50%, #7fbf5b 75%, transparent 75%, transparent), linear-gradient(45deg, #7fbf5b 25%, transparent 25%, transparent 50%, #7fbf5b 50%, #7fbf5b 75%, transparent 75%, transparent);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        .custom-btn {
+            font-size: 1.5rem;
+            padding: 20px 40px;
+            background: green;
+            color: white;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+        }
+    </style>
 </head>
-
-<style>
-        .btn {
-        font-size: 20px; /* Increase font size */
-        padding: 100px 72px; /* Increase padding */
-        background: green;
-        width: 100px; /* Set a fixed width */
-        height: 100px; /* Set a fixed height */
-        text-align: center; /* Center the text */
-    }
-</style>
-
-
-<div class="text-center">
-    <h1 class="display-4">Welcome To Agri-Energy Connect</h1>
-
-    <div>
-        <a href="/Employee/EmployeeLogin" class="btn btn-primary">Employee</a>
-        <a href="/Farmer/FarmerLogin" class="btn btn-primary">Farmer</a>
+<body>
+    <div class="container text-center mt-5">
+        <h1 class="display-4">Welcome To Agri-Energy Connect</h1>
+        <div class="d-flex justify-content-center mt-4">
+            <a href="/Employee/EmployeeLogin" class="btn custom-btn">Employee</a>
+            <a href="/Farmer/FarmerLogin" class="btn custom-btn">Farmer</a>
+        </div>
     </div>
-    
-</div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

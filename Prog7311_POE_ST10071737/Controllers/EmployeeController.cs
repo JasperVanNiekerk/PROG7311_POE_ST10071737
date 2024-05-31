@@ -10,6 +10,7 @@ namespace Prog7311_POE_ST10071737.Controllers
     public class EmployeeController : Controller
     {
         private readonly MyDbContext myDBContext;
+        private static int CurrentEmployeeID;
 
         public EmployeeController(MyDbContext myDBContext)
         {
@@ -40,6 +41,7 @@ namespace Prog7311_POE_ST10071737.Controllers
                 {
                     if (existingEmployee.Password == employeeLoginVM.EmployeePassword)
                     {
+                        CurrentEmployeeID = existingEmployee.EmployeeId;
                         return RedirectToAction("EmployeeHome");
                     }
                     return RedirectToAction("EmployeeLogin");
@@ -53,9 +55,53 @@ namespace Prog7311_POE_ST10071737.Controllers
         [HttpGet]
         public IActionResult EmployeeHome()
         {
-            return View();
+            var model = new EmployeeHomeVM
+            {
+                EmployeeName = myDBContext.Employees.FirstOrDefault(e => e.EmployeeId == CurrentEmployeeID).FirstName,
+                products = myDBContext.Products.ToList(),
+                Categories = myDBContext.Categories.ToList()
+            };
+            return View(model);
         }
         //___________________________________________________________________________________________________________
+
+        [HttpPost]
+        public IActionResult FilterProducts(EmployeeHomeVM model)
+        {
+            var productsQuery = myDBContext.Products.AsQueryable();
+
+            if (model.FilterStartDate.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.ProductionDate >= model.FilterStartDate.Value);
+            }
+
+            if (model.FilterEndDate.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.ProductionDate <= model.FilterEndDate.Value);
+            }
+
+            if (model.FilterCategoryId.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.CategoryId == model.FilterCategoryId.Value);
+            }
+
+            if (model.FilterMinPrice.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.Price >= model.FilterMinPrice.Value);
+            }
+
+            if (model.FilterMaxPrice.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.Price <= model.FilterMaxPrice.Value);
+            }
+
+            model.products = productsQuery.ToList();
+            model.Categories = myDBContext.Categories.ToList();
+
+            model.EmployeeName = myDBContext.Employees.FirstOrDefault(e => e.EmployeeId == CurrentEmployeeID).FirstName;
+
+            return View("EmployeeHome", model);
+        }
 
         [HttpGet]
         public IActionResult FarmerRequests()
@@ -105,6 +151,22 @@ namespace Prog7311_POE_ST10071737.Controllers
             return View();
         }
         //___________________________________________________________________________________________________________
+
+        [HttpPost]
+        public async Task<IActionResult> AddEmployees(AddEmployeeVM addEmployeeVM)
+        {
+            if (addEmployeeVM != null)
+            {
+                var newEmployee = new Employee();
+                newEmployee.FirstName = addEmployeeVM.Name;
+                newEmployee.LastName = addEmployeeVM.Surname;
+                newEmployee.Email = addEmployeeVM.Email;
+                newEmployee.Password = addEmployeeVM.Password;
+                await myDBContext.AddAsync(newEmployee);
+                await myDBContext.SaveChangesAsync();
+            }
+            return RedirectToAction("AddEmployees");
+        }
     }
 }//john.doe@example.com', 'SecurePassword123');
  //____________________________________EOF_________________________________________________________________________

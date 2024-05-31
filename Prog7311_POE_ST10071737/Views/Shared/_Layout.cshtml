@@ -7,12 +7,27 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Prog7311_POE_ST10071737.styles.css" asp-append-version="true" />
+    <style>
+        header, footer {
+            background-color: #d4edda; /* Light green background */
+        }
+
+        .navbar-brand img {
+            height: 40px; /* Adjust the height as needed */
+        }
+
+        .footer {
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Prog7311_POE_ST10071737</a>
+                <a class="navbar-brand" href="/">
+                    <img src="~/images/logo.png" alt="Logo" /> <!-- Replace with your logo path -->
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

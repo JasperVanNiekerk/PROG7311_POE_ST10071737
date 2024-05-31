@@ -1,8 +1,67 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Prog7311_POE_ST10071737.Models.EmployeeHomeVM
 @{
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
 }
-this exists
-view products
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Employee login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PROG6212_POE_Final_ST10071737.styles.css" asp-append-version="true" />
+</head>
+
+<div class="container mt-5">
+    <h1 class="text-center">Hello @Model.EmployeeName</h1>
+    
+    <form method="post" asp-controller="Employee" asp-action="FilterProducts" class="mb-4">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="FilterStartDate">Start Date</label>
+                <input type="date" class="form-control" id="FilterStartDate" name="FilterStartDate" value="@Model.FilterStartDate?.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-md-3">
+                <label for="FilterEndDate">End Date</label>
+                <input type="date" class="form-control" id="FilterEndDate" name="FilterEndDate" value="@Model.FilterEndDate?.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-md-3">
+                <label for="FilterCategoryId">Category</label>
+                <select class="form-control" id="FilterCategoryId" name="FilterCategoryId">
+                    <option value="">All Categories</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.CategoryId" selected="@((category.CategoryId == Model.FilterCategoryId).ToString().ToLower())">@category.CategoryName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="FilterMinPrice">Min Price</label>
+                <input type="number" class="form-control" id="FilterMinPrice" name="FilterMinPrice" value="@Model.FilterMinPrice" />
+            </div>
+            <div class="col-md-3">
+                <label for="FilterMaxPrice">Max Price</label>
+                <input type="number" class="form-control" id="FilterMaxPrice" name="FilterMaxPrice" value="@Model.FilterMaxPrice" />
+            </div>
+            <div class="col-md-12 mt-3">
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        @foreach (var product in Model.products)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title">@product.ProductName</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@product.Description</p>
+                        <p class="card-text font-weight-bold">Price: R @product.Price</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
