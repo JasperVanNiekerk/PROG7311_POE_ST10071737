@@ -11,18 +11,30 @@ namespace Prog7311_POE_ST10071737.Controllers
         private readonly MyDbContext myDBContext;
         private static int CurrentFarmerID;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FarmerController"/> class.
+        /// </summary>
+        /// <param name="myDBContext">The database context.</param>
         public FarmerController(MyDbContext myDBContext)
         {
             this.myDBContext = myDBContext;
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Displays the index view.
+        /// </summary>
+        /// <returns>The index view.</returns>
         public IActionResult Index()
         {
             return View();
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Displays the FarmerLogin view.
+        /// </summary>
+        /// <returns>The FarmerLogin view.</returns>
         [HttpGet]
         public IActionResult FarmerLogin()
         {
@@ -30,6 +42,11 @@ namespace Prog7311_POE_ST10071737.Controllers
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Handles the Farmer login.
+        /// </summary>
+        /// <param name="model">The farmer login view model.</param>
+        /// <returns>The action result.</returns>
         [HttpPost]
         public async Task<IActionResult> FarmerLogin(farmerLoginVM model)
         {
@@ -56,7 +73,13 @@ namespace Prog7311_POE_ST10071737.Controllers
             }
             return RedirectToAction("FarmerLogin");
         }
+        //___________________________________________________________________________________________________________
 
+
+        /// <summary>
+        /// Displays the FarmerRegister view.
+        /// </summary>
+        /// <returns>The FarmerRegister view.</returns>
         [HttpGet]
         public IActionResult FarmerRegister()
         {
@@ -66,12 +89,17 @@ namespace Prog7311_POE_ST10071737.Controllers
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Registers a new farmer.
+        /// </summary>
+        /// <param name="model">The FarmerRegisterVM model containing the farmer's information.</param>
+        /// <returns>The action result.</returns>
         [HttpPost]
         public async Task<IActionResult> RegisterFarmer(FarmerRegisterVM model)
         {
-            //collect aditional data
+            //collect additional data
             var requestDate = DateTime.Now;
-            var aproval = false;
+            var approval = false;
 
             //create a new farmerRequest
             var farmerRequest = new FarmerRequest
@@ -80,7 +108,7 @@ namespace Prog7311_POE_ST10071737.Controllers
                 LastName = model.FarmerSurname,
                 Email = model.FarmerEmail,
                 RequestDate = requestDate,
-                IsApproved = aproval
+                IsApproved = approval
             };
 
             //add the request to the database
@@ -90,7 +118,12 @@ namespace Prog7311_POE_ST10071737.Controllers
             model.RequestMade = true;
             return RedirectToAction("FarmerRegister", model);
         }
+        //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Displays the FarmerHome view.
+        /// </summary>
+        /// <returns>The FarmerHome view.</returns>
         [HttpGet]
         public IActionResult FarmerHome()
         {
@@ -101,6 +134,10 @@ namespace Prog7311_POE_ST10071737.Controllers
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Displays the AddCategory view.
+        /// </summary>
+        /// <returns>The AddCategory view.</returns>
         [HttpGet]
         public IActionResult AddCategory()
         {
@@ -108,6 +145,11 @@ namespace Prog7311_POE_ST10071737.Controllers
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Adds a new category to the database.
+        /// </summary>
+        /// <param name="model">The AddCategoryVM model containing the category information.</param>
+        /// <returns>The action result.</returns>
         [HttpPost]
         public async Task<IActionResult> AddCategoryToDB(AddCategoryVM model)
         {
@@ -123,6 +165,10 @@ namespace Prog7311_POE_ST10071737.Controllers
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Displays the AddProduct view.
+        /// </summary>
+        /// <returns>The AddProduct view.</returns>
         [HttpGet]
         public IActionResult AddProduct()
         {
@@ -133,6 +179,11 @@ namespace Prog7311_POE_ST10071737.Controllers
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Adds a new product to the database.
+        /// </summary>
+        /// <param name="model">The AddProductVM model containing the product information.</param>
+        /// <returns>The action result.</returns>
         [HttpPost]
         public async Task<IActionResult> AddProductToDB(AddProductVM model)
         {

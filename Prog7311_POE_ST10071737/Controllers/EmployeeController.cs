@@ -7,23 +7,38 @@ using Prog7311_POE_ST10071737.Services;
 
 namespace Prog7311_POE_ST10071737.Controllers
 {
+    /// <summary>
+    /// Controller for managing employee-related actions.
+    /// </summary>
     public class EmployeeController : Controller
     {
         private readonly MyDbContext myDBContext;
         private static int CurrentEmployeeID;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmployeeController"/> class.
+        /// </summary>
+        /// <param name="myDBContext">The database context.</param>
         public EmployeeController(MyDbContext myDBContext)
         {
             this.myDBContext = myDBContext;
         }
-        //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Displays the index view.
+        /// </summary>
+        /// <returns>The index view.</returns>
         public IActionResult Index()
         {
             return View();
         }
+
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Displays the employee login view.
+        /// </summary>
+        /// <returns>The employee login view.</returns>
         [HttpGet]
         public IActionResult EmployeeLogin()
         {
@@ -31,6 +46,11 @@ namespace Prog7311_POE_ST10071737.Controllers
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Handles the employee login.
+        /// </summary>
+        /// <param name="employeeLoginVM">The employee login view model.</param>
+        /// <returns>The action result.</returns>
         [HttpPost]
         public async Task<IActionResult> EmployeeLogin(EmployeeLoginVM employeeLoginVM)
         {
@@ -52,6 +72,10 @@ namespace Prog7311_POE_ST10071737.Controllers
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Displays the employee home view.
+        /// </summary>
+        /// <returns>The employee home view.</returns>
         [HttpGet]
         public IActionResult EmployeeHome()
         {
@@ -66,6 +90,11 @@ namespace Prog7311_POE_ST10071737.Controllers
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Filters the products based on the provided criteria.
+        /// </summary>
+        /// <param name="model">The EmployeeHomeVM model containing the filter criteria.</param>
+        /// <returns>The EmployeeHome view with the filtered products.</returns>
         [HttpPost]
         public IActionResult FilterProducts(EmployeeHomeVM model)
         {
@@ -111,7 +140,12 @@ namespace Prog7311_POE_ST10071737.Controllers
 
             return View("EmployeeHome", model);
         }
+        //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Displays the farmer requests view.
+        /// </summary>
+        /// <returns>The farmer requests view.</returns>
         [HttpGet]
         public IActionResult FarmerRequests()
         {
@@ -121,23 +155,26 @@ namespace Prog7311_POE_ST10071737.Controllers
             };
             return View(farmerRequests);
         }
+
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Approves a farmer request and performs necessary actions.
+        /// </summary>
+        /// <param name="FRID">The ID of the farmer request to approve.</param>
+        /// <returns>The action result.</returns>
         [HttpPost]
         public async Task<IActionResult> ApproveRequest(int FRID)
         {
-            //send email (get info from farmer request)
             var farmerRequest = await myDBContext.FarmerRequests.FirstOrDefaultAsync(fr => fr.RequestId == FRID);
-            if(farmerRequest != null)
+            if (farmerRequest != null)
             {
-                //send email (get info from farmer request)
                 var password = PasswordService.GeneratePassword();
                 var email = farmerRequest.Email;
                 var name = farmerRequest.FirstName;
                 EmailService emailService = new EmailService();
                 emailService.Sender(email, name, password);
 
-                //update farmer table
                 var newFarmer = new Farmer();
                 newFarmer.FirstName = name;
                 newFarmer.LastName = farmerRequest.LastName;
@@ -145,15 +182,19 @@ namespace Prog7311_POE_ST10071737.Controllers
                 newFarmer.Password = password;
                 await myDBContext.AddAsync(newFarmer);
 
-                //update farmer request
                 farmerRequest.IsApproved = true;
                 myDBContext.FarmerRequests.Update(farmerRequest);
                 await myDBContext.SaveChangesAsync();
             }
-            
+
             return RedirectToAction("FarmerRequests");
         }
+        //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Displays the add employees view.
+        /// </summary>
+        /// <returns>The add employees view.</returns>
         [HttpGet]
         public IActionResult AddEmployees()
         {
@@ -161,6 +202,11 @@ namespace Prog7311_POE_ST10071737.Controllers
         }
         //___________________________________________________________________________________________________________
 
+        /// <summary>
+        /// Adds a new employee to the database.
+        /// </summary>
+        /// <param name="addEmployeeVM">The view model containing the employee details.</param>
+        /// <returns>The action result.</returns>
         [HttpPost]
         public async Task<IActionResult> AddEmployees(AddEmployeeVM addEmployeeVM)
         {
@@ -176,6 +222,7 @@ namespace Prog7311_POE_ST10071737.Controllers
             }
             return RedirectToAction("AddEmployees");
         }
+        //___________________________________________________________________________________________________________
     }
 }//john.doe@example.com', 'SecurePassword123');
  //____________________________________EOF_________________________________________________________________________
