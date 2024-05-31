@@ -5,40 +5,73 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] Employee login</title>
+    <title>@ViewData["Title"] Farmer Registration</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PROG6212_POE_Final_ST10071737.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light blue background for better visibility */
+            background-image: linear-gradient(45deg, #7fbf5b 25%, transparent 25%, transparent 50%, #7fbf5b 50%, #7fbf5b 75%, transparent 75%, transparent), 
+                              linear-gradient(45deg, #7fbf5b 25%, transparent 25%, transparent 50%, #7fbf5b 50%, #7fbf5b 75%, transparent 75%, transparent);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+
+        .registration-form {
+            background: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .alert-success {
+            margin-top: 50px;
+        }
+    </style>
 </head>
+<body>
+    <div class="container">
+        @if (Model.RequestMade)
+        {
+            <div class="alert alert-success text-center">
+                <p>Request has been made. Please note that if you have not entered a valid email, our team will not be able to communicate your login credentials to you.</p>
+            </div>
+        }
+        else
+        {
+            <form method="post" asp-controller="Farmer" asp-action="RegisterFarmer" class="registration-form col-md-5 mx-auto text-center">
+                <h2 class="mb-4">Farmer Registration</h2>
+                <div class="mb-3">
+                    <label for="FarmerName" class="form-label">Name</label>
+                    <input type="text" class="form-control" asp-for="FarmerName" id="FarmerName" required>
+                </div>
 
-@if (Model.RequestMade)
-{
-    <div class="alert alert-success">
-        <p>Request has been made 
-            please note however if you have not entered a valid Email 
-            our team will not be able to communicate your login credentials to you</p>
+                <div class="mb-3">
+                    <label for="FarmerSurname" class="form-label">Surname</label>
+                    <input type="text" class="form-control" asp-for="FarmerSurname" id="FarmerSurname" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="FarmerEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" asp-for="FarmerEmail" id="FarmerEmail" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit Request</button>
+            </form>
+        }
     </div>
-}
-else{
-<form method="post" asp-controller="Farmer" asp-action="RegisterFarmer" class="col-md-5 mx-auto mt-5 text-center">
-
-    <div class="mb-3">
-        <label for="" class="form-label">Name</label>
-        <input type="text" class="form-control" asp-for="FarmerName">
-    </div>
-
-    <div class="mb-3">
-        <label for="" class="form-label">Surname</label>
-        <input type="text" class="form-control" asp-for="FarmerSurname">
-    </div>
-
-    <div class="mb-3">
-        <label for="" class="form-label">Email</label>
-        <input type="text" class="form-control" asp-for="FarmerEmail">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit request</button>
-
-</form>
-}
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>

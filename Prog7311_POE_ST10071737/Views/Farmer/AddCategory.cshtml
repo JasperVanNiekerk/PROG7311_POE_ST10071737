@@ -5,22 +5,57 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] Employee login</title>
+    <title>@ViewData["Title"] - Add Category</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PROG6212_POE_Final_ST10071737.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light blue background for better visibility */
+            background-image: linear-gradient(45deg, #7fbf5b 25%, transparent 25%, transparent 50%, #7fbf5b 50%, #7fbf5b 75%, transparent 75%, transparent), linear-gradient(45deg, #7fbf5b 25%, transparent 25%, transparent 50%, #7fbf5b 50%, #7fbf5b 75%, transparent 75%, transparent);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .add-category-form {
+            background: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
-<h1>Add Category</h1>
+<body>
+    <h1>Add Category</h1>
 
-<form method="post" asp-controller="Farmer" asp-action="AddCategoryToDB" class="col-md-5 mx-auto mt-5 text-center">
+    <div class="container">
+        <form method="post" asp-controller="Farmer" asp-action="AddCategoryToDB" class="add-category-form col-md-5 mx-auto mt-5 text-center">
+            <div class="mb-3">
+                <label for="CategoryName" class="form-label">Category Name</label>
+                <input type="text" class="form-control" asp-for="CategoryName" id="CategoryName" required>
+            </div>
 
-    <div class="mb-3">
-        <label for="" class="form-label">Category Name</label>
-        <input type="text" class="form-control" asp-for="CategoryName">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
     </div>
 
-    <button type="submit" class="btn btn-primary">Add</button>
-
-
-</form>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
