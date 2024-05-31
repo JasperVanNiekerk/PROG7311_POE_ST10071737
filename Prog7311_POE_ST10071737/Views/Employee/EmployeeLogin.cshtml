@@ -6,24 +6,56 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] Employee login</title>
+    <title>@ViewData["Title"] - Employee Login</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PROG6212_POE_Final_ST10071737.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light blue background for better visibility */
+            background-image: linear-gradient(45deg, #7fbf5b 25%, transparent 25%, transparent 50%, #7fbf5b 50%, #7fbf5b 75%, transparent 75%, transparent), 
+                              linear-gradient(45deg, #7fbf5b 25%, transparent 25%, transparent 50%, #7fbf5b 50%, #7fbf5b 75%, transparent 75%, transparent);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+
+        .login-form {
+            background: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
-<form method="post" asp-controller="Employee" asp-action="EmployeeLogin" class="col-md-5 mx-auto mt-5 text-center">
+<body>
+    <div class="container">
+        <form method="post" asp-controller="Employee" asp-action="EmployeeLogin" class="login-form col-md-5 mx-auto mt-5 text-center">
+            <div class="mb-3">
+                <label for="EmployeeEmail" class="form-label">Email</label>
+                <input type="text" class="form-control" asp-for="EmployeeEmail" id="EmployeeEmail" required>
+            </div>
 
-    <div class="mb-3">
-        <label for="" class="form-label">Email</label>
-        <input type="text" class="form-control" asp-for="EmployeeEmail">
+            <div class="mb-3">
+                <label for="EmployeePassword" class="form-label">Password</label>
+                <input type="password" class="form-control" asp-for="EmployeePassword" id="EmployeePassword" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
     </div>
 
-    <div class="mb-3">
-        <label for="" class="form-label">Password</label>
-        <input type="password" class="form-control" asp-for="EmployeePassword">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Login</button>
-
-</form>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>

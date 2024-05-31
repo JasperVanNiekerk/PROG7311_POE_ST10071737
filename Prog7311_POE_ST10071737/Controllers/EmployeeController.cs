@@ -59,7 +59,8 @@ namespace Prog7311_POE_ST10071737.Controllers
             {
                 EmployeeName = myDBContext.Employees.FirstOrDefault(e => e.EmployeeId == CurrentEmployeeID).FirstName,
                 products = myDBContext.Products.ToList(),
-                Categories = myDBContext.Categories.ToList()
+                Categories = myDBContext.Categories.ToList(),
+                Farmers = myDBContext.Farmers.ToList()
             };
             return View(model);
         }
@@ -94,9 +95,17 @@ namespace Prog7311_POE_ST10071737.Controllers
             {
                 productsQuery = productsQuery.Where(p => p.Price <= model.FilterMaxPrice.Value);
             }
+            if (model.SortByFarmerId.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.FarmerId == model.SortByFarmerId.Value);
+            }
 
+            // Populate model properties
             model.products = productsQuery.ToList();
             model.Categories = myDBContext.Categories.ToList();
+
+            // Retrieve and assign list of farmers
+            model.Farmers = myDBContext.Farmers.ToList();
 
             model.EmployeeName = myDBContext.Employees.FirstOrDefault(e => e.EmployeeId == CurrentEmployeeID).FirstName;
 

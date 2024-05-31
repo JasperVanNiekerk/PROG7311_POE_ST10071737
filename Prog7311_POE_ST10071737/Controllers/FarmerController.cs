@@ -128,6 +128,7 @@ namespace Prog7311_POE_ST10071737.Controllers
         {
             var model = new AddProductVM();
             model.catagories = myDBContext.Categories.ToList();
+            model.ProductionDate = DateTime.Now;
             return View(model);
         }
         //___________________________________________________________________________________________________________

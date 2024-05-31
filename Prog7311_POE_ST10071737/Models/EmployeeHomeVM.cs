@@ -13,8 +13,11 @@ namespace Prog7311_POE_ST10071737.Models
         public int? FilterCategoryId { get; set; }
         public decimal? FilterMinPrice { get; set; }
         public decimal? FilterMaxPrice { get; set; }
+        public int? SortByFarmerId { get; set; }
 
         // Category list for dropdown
         public List<Category> Categories { get; set; }
+
+        public List<Farmer> Farmers { get; set; }
     }
 }
