@@ -22,6 +22,14 @@ Approved farmers receive an email containing their login credentials.
 Getting Started
 To run Agri-Energy Connect locally, follow these steps:
 
+for testing puroses here are the credentials of two of teh different user types
+Farmer
+password RYdJqQ^TwLWM
+Email    St10071737@vcconnect.edu.za
+employee
+email john.doe@example.com
+password SecurePassword123
+
 Clone this repository to your local machine.
 Navigate to the project directory.
 Open the solution file in Visual Studio.
